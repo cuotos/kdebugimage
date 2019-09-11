@@ -19,5 +19,5 @@ jobs:
     - uses: actions/checkout@v1
     - uses: actions/docker/cli@master
       with:
-        args: 'build -t cuotos/kdebugimage:latest .'
+        args: 'build -t teststring/kdebugimage:latest .'
     - run: docker images
