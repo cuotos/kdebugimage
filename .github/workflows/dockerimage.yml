@@ -32,7 +32,7 @@ jobs:
     - uses: actions/docker/cli@master
       if: github.ref != 'master'
       with:
-        args: push cuotos/kdebugimage:${GITHUB_REF}
+        args: push cuotos/kdebugimage:github.ref
 
     - uses: actions/docker/cli@master
       if: github.ref == 'master'
