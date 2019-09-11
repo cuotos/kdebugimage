@@ -18,5 +18,6 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - uses: actions/checkout@v1
     - uses: actions/docker/cli@master
-      args: build -t cuotos/kdebugimage:latest .
+      with:
+        args: build -t cuotos/kdebugimage:latest .
     - run: docker push cuotos/kdebugimage:latest
