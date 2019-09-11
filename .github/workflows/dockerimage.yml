@@ -23,4 +23,6 @@ jobs:
     - uses: actions/docker/cli@master
       with:
         args: push cuotos/kdebugimage:latest
-    - run: df -h
+    - uses: actions/docker/cli@master
+      with:
+        args: "images; df -h"
