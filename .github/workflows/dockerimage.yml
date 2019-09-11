@@ -30,11 +30,11 @@ jobs:
         args: "theimage cuotos/kdebugimage"
     
     - uses: actions/docker/cli@master
-      if: ${GITHUB_REF} != 'master'
+      if: github.ref != 'master'
       with:
         args: push cuotos/kdebugimage:${GITHUB_REF}
 
     - uses: actions/docker/cli@master
-      if: ${GITHUB_REF} == 'master'
+      if: github.ref == 'master'
       with:
         args: push cuotos/kdebugimage:latest
