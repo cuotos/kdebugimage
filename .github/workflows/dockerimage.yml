@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-    - uses: actions/checkout@v1
     - uses: actions/docker/login@master
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag cuotos/kdebugimage:latest
+    - uses: actions/checkout@v1
+    - uses: actions/docker/cli@master
+      args: build -t cuotos/kdebugimage:latest .
+    - run: docker push cuotos/kdebugimage:latest
