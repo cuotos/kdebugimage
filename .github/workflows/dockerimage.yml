@@ -21,3 +21,5 @@ jobs:
       with:
         args: 'build -t teststring/kdebugimage:latest .'
     - run: docker images
+    - run: echo cuotos
+    - run: echo "hi cuotos hi"
