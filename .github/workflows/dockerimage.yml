@@ -16,10 +16,10 @@ jobs:
     #   env:
     #     DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
     #     DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    - uses: actions/checkout@v1
-    - uses: actions/docker/cli@master
-      with:
-        args: 'build -t teststring/kdebugimage:latest .'
+    # - uses: actions/checkout@v1
+    # - uses: actions/docker/cli@master
+    #   with:
+    #     args: 'build -t teststring/kdebugimage:latest .'
     - run: docker images
     - run: echo cuotos
     - run: echo "hi cuotos hi"
