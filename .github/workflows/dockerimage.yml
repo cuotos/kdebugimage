@@ -21,3 +21,4 @@ jobs:
       with:
         args: 'build -t cuotos/kdebugimage:latest .'
     - run: docker push cuotos/kdebugimage:latest
+    - run: ls -lart /github/home/.docker
