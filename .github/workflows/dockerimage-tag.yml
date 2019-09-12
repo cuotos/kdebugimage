@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+
+  build:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/docker/login@master
+      env:
+        DOCKER_USERNAME: cuotos
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - uses: actions/checkout@v1
+    
+    - uses: actions/docker/cli@master
+      with:
+        args: 'build -t cuotos/kdebugimage:${{github.ref}} .'
+
+    - uses: actions/docker/cli@master
+      with:
+        args: push cuotos/kdebugimage:${{github.ref}}

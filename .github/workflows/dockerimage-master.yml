@@ -2,8 +2,6 @@ name: Docker Image CI
 
 on:
   push:
-    tags:
-      - '*'
     branches:
       - master
 
@@ -23,16 +21,7 @@ jobs:
     
     - uses: actions/docker/cli@master
       with:
-        args: 'build -t theimage .'
-
-    - uses: actions/docker/tag@master
-      with:
-        args: "theimage cuotos/kdebugimage"
-    
-    # - uses: actions/docker/cli@master
-    #   if: github.ref != 'master'
-    #   with:
-    #     args: push cuotos/kdebugimage:github.ref
+        args: 'build -t cuotos/kdebugimage:latest .'
 
     - uses: actions/docker/cli@master
       with:
