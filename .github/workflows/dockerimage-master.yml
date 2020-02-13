@@ -8,21 +8,13 @@ on:
 jobs:
 
   build:
- 
     runs-on: ubuntu-latest
  
     steps:
-    - uses: actions/docker/login@master
-      env:
+    - uses: actions/checkout@v1
+    - env:
         DOCKER_USERNAME: cuotos
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    
-    - uses: actions/checkout@v1
-    
-    - uses: actions/docker/cli@master
-      with:
-        args: 'build -t cuotos/kdebugimage:latest .'
 
-    - uses: actions/docker/cli@master
-      with:
-        args: push cuotos/kdebugimage:latest
+    - name: Log into registry
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ github.actor }} --password-stdin
