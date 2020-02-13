@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - v*
 
 jobs:
 
@@ -11,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     
     - name: build docker image
-      run: docker build -t ${{ github.repository }}:latest .
+      run: docker build -t dockerimage .
     
     - name: Log into registry
       env:
@@ -23,4 +25,15 @@ jobs:
       run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ github.actor }} --password-stdin
     
     - name: push image
-      run: docker push ${{ github.repository }}:latest
+      run: |
+        IMAGE_ID=${{ github.repository }}
+        # Strip git ref prefix from version
+        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+        # Strip "v" prefix from tag name
+        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+        # Use Docker `latest` tag convention
+        [ "$VERSION" == "master" ] && VERSION=latest
+        echo IMAGE_ID=$IMAGE_ID
+        echo VERSION=$VERSION
+        docker tag dockerimage $IMAGE_ID:$VERSION
+        docker push $IMAGE_ID:$VERSION
