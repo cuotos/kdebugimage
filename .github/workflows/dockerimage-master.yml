@@ -4,36 +4,29 @@ on:
   push:
     branches:
       - master
-    tags:
-      - v*
 
+env:
+  IMAGE_TAG: kdebugimage
 jobs:
-
   build:
     runs-on: ubuntu-latest
  
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: build docker image
-      run: docker build -t dockerimage .
+    - uses: actions/checkout@master
     
     - name: Log into registry
+      if: success()
+      uses: actions-hub/docker/login@master
       env:
         DOCKER_USERNAME: cuotos
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ github.actor }} --password-stdin
     
-    - name: push image
-      run: |
-        IMAGE_ID=${{ github.repository }}
-        # Strip git ref prefix from version
-        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        # Strip "v" prefix from tag name
-        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-        # Use Docker `latest` tag convention
-        [ "$VERSION" == "master" ] && VERSION=latest
-        echo IMAGE_ID=$IMAGE_ID
-        echo VERSION=$VERSION
-        docker tag dockerimage $IMAGE_ID:$VERSION
-        docker push $IMAGE_ID:$VERSION
+    - name: build image
+      if: success()
+      run: docker build -t ${GITHUB_REPOSITORY}:${IMAGE_TAG}
+   
+    - name: push to docker hub
+      if: success()
+      uses: actions-hub/docker@master
+      with:
+        args: push ${GITHUB_REPOSITORY}:${IMAGE_TAG}
