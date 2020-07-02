@@ -32,7 +32,7 @@ jobs:
         args: push ${GITHUB_REPOSITORY}:${IMAGE_TAG}
 
     - name: docker hub description from README
-      uses: peter-evans/dockerhub-descriptions@v2
+      uses: peter-evans/dockerhub-description@v2
       env:
         DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
