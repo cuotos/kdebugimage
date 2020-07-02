@@ -32,6 +32,6 @@ jobs:
     - name: docker hub description from README
       uses: peter-evans/dockerhub-description@v2
       env:
-        DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKERHUB_USERNAME: cuotos
         DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKERHUB_REPOSITORY: cuotos/kdebugimage
