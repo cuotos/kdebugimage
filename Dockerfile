@@ -8,12 +8,10 @@ bind-tools \
 curl \
 busybox-extras
 
-RUN cd /tmp && \
-wget -nv  -O /tmp/grpcurl.tar.gz https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_VERSION}/grpcurl_${GRPCURL_VERSION}_linux_x86_64.tar.gz && \
-tar -xvzf grpcurl.tar.gz &&\
-echo "${GRPCURL_SHA256}  grpcurl.tar.gz" | sha256sum -c - && \
-cp grpcurl /usr/bin &&\
-rm grpcurl.tar.gz
+RUN wget -nv  -O /tmp/grpcurl.tar.gz https://github.com/fullstorydev/grpcurl/releases/download/v${GRPCURL_VERSION}/grpcurl_${GRPCURL_VERSION}_linux_x86_64.tar.gz && \
+echo "${GRPCURL_SHA256}  /tmp/grpcurl.tar.gz" | sha256sum -c - && \
+tar -xzf /tmp/grpcurl.tar.gz -C /usr/bin/ grpcurl && \
+rm /tmp/grpcurl.tar.gz
 
 ARG VERSION=unset
 ENV PS1="kdebugimage-${VERSION}:\w\$ "
