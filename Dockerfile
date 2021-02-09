@@ -14,3 +14,6 @@ tar -xvzf grpcurl.tar.gz &&\
 echo "${GRPCURL_SHA256}  grpcurl.tar.gz" | sha256sum -c - && \
 cp grpcurl /usr/bin &&\
 rm grpcurl.tar.gz
+
+ARG VERSION=unset
+ENV PS1="kdebugimage-${VERSION}:\w\$ "
