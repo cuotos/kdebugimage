@@ -8,30 +8,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
- 
     steps:
-    - uses: actions/checkout@master
-    
-    - name: Log into registry
-      if: success()
-      uses: actions-hub/docker/login@master
-      env:
-        DOCKER_USERNAME: cuotos
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    
-    - name: build image
-      if: success()
-      run: docker build -t ${GITHUB_REPOSITORY}:${IMAGE_TAG} .
-   
-    - name: push to docker hub
-      if: success()
-      uses: actions-hub/docker@master
-      with:
-        args: push ${GITHUB_REPOSITORY}:${IMAGE_TAG}
-
-    - name: docker hub description from README
-      uses: peter-evans/dockerhub-description@v2
-      env:
-        DOCKERHUB_USERNAME: cuotos
-        DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKERHUB_REPOSITORY: cuotos/kdebugimage
+      - uses: actions/checkout@master
+      - name: Publish Docker Image
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: cuotos/kdebugimage
+          username: cuotos
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          snapshot: true
+          tag_semver: true
