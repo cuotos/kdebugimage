@@ -18,4 +18,5 @@ jobs:
           name: cuotos/kdebugimage
           username: cuotos
           password: ${{ secrets.DOCKER_PASSWORD }}
+          snapshot: false
           tag_semver: true
