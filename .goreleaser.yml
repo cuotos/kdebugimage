@@ -1,0 +1,8 @@
+builds:
+  - skip: true
+dockers:
+  - image_templates:
+    - cuotos/kdebugimage:{{.Tag}}
+    - cuotos/kdebugimage:v{{.Major}}
+    - cuotos/kdebugimage:v{{.Major}}.{{.Minor}}
+    - cuotos/kdebugimage:latest

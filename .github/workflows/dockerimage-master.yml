@@ -1,22 +1,24 @@
-name: Docker Image CI master
+## Using goreleaser to handle publishing
 
-on:
-  push:
-    tags:
-      - "*"
-    branches:
-      - "*"
+# name: Docker Image CI master
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Publish Docker Image
-        uses: elgohr/Publish-Docker-Github-Action@master
-        with:
-          name: cuotos/kdebugimage
-          username: cuotos
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          snapshot: false
-          tag_semver: true
+# on:
+#   push:
+#     tags:
+#       - "*"
+#     branches:
+#       - "*"
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#       - name: Publish Docker Image
+#         uses: elgohr/Publish-Docker-Github-Action@master
+#         with:
+#           name: cuotos/kdebugimage
+#           username: cuotos
+#           password: ${{ secrets.DOCKER_PASSWORD }}
+#           snapshot: false
+#           tag_semver: true
